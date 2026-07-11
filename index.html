@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detective Academy Graduation</title>
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#0d2f24,#173f31,#2f5b48);
+color:white;
+}
+.wrap{max-width:1100px;margin:auto;padding:30px}
+.card{
+background:#f8f5ea;
+color:#12352b;
+border-radius:16px;
+padding:25px;
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
+h1{text-align:center;margin-top:0}
+.case{
+background:#ead9b5;
+padding:15px;
+border-left:8px solid #7b1e1e;
+border-radius:8px;
+margin-bottom:20px;
+}
+input{
+width:100%;
+padding:14px;
+font-size:20px;
+border-radius:8px;
+border:2px solid #12352b;
+box-sizing:border-box;
+}
+button{
+margin-top:15px;
+padding:14px 24px;
+font-size:18px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#b28b2f;
+color:white;
+font-weight:bold;
+}
+button:hover{filter:brightness(1.08)}
+#certificate{
+display:none;
+margin-top:25px;
+position:relative;
+}
+#certificate img{
+width:100%;
+display:block;
+border-radius:10px;
+}
+#studentName{
+position:absolute;
+left:50%;
+top:34%;
+transform:translateX(-50%);
+font-family:"Times New Roman",serif;
+font-size:42px;
+font-weight:bold;
+color:#163b2f;
+white-space:nowrap;
+text-align:center;
+}
+#confetti{
+position:fixed;
+inset:0;
+pointer-events:none;
+overflow:hidden;
+}
+.piece{
+position:absolute;
+width:8px;
+height:12px;
+animation:fall 3s linear forwards;
+}
+@keyframes fall{
+0%{transform:translateY(-20px) rotate(0deg)}
+100%{transform:translateY(110vh) rotate(720deg)}
+}
+@media print{
+body{background:white}
+.wrap>*:not(#certificate){display:none!important}
+#certificate{display:block!important}
+}
+</style>
+</head>
+<body>
+<div id="confetti"></div>
+<div class="wrap">
+<div class="card">
+<h1>🕵️ Detective Academy Graduation</h1>
+<div class="case">
+<b>CASE FILE:</b> Enter your detective name exactly as you want it printed.
+</div>
+<input id="name" placeholder="Detective Name">
+<button onclick="generate()">🏅 Generate My Certificate</button>
+<button id="print" style="display:none" onclick="window.print()">🖨 Print Certificate</button>
+
+<div id="certificate">
+<img src="certificate.png" alt="Certificate">
+<div id="studentName"></div>
+</div>
+</div>
+</div>
+
+<script>
+function confetti(){
+const colors=["#d4af37","#8b0000","#1f6b4f","#ffffff"];
+const c=document.getElementById("confetti");
+c.innerHTML="";
+for(let i=0;i<120;i++){
+let p=document.createElement("div");
+p.className="piece";
+p.style.left=Math.random()*100+"vw";
+p.style.background=colors[Math.floor(Math.random()*colors.length)];
+p.style.animationDelay=(Math.random()*1)+"s";
+c.appendChild(p);
+}
+setTimeout(()=>c.innerHTML="",3500);
+}
+function generate(){
+const n=document.getElementById("name").value.trim();
+if(!n){alert("Please enter your detective name.");return;}
+document.getElementById("studentName").textContent=n;
+document.getElementById("certificate").style.display="block";
+document.getElementById("print").style.display="inline-block";
+confetti();
+document.getElementById("certificate").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
